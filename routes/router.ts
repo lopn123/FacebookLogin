@@ -2,7 +2,56 @@
  * @swagger
  * tags:
  *  name: Boards
- *  description: Board List
+ *  description: Manage Board API
+ */
+/**
+ * @swagger
+ * paths:
+ *  /board_list:
+ *      get:
+ *          summary: Lists all the Boards
+ *          tags: [Boards]
+ *          response:
+ *              "200":
+ *                  description: The list of Boards.
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/board'
+ *  /board/write:
+ *      post:
+ *          summary: Creates a new Board
+ *          tags: [Boards]
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/board'
+ *          response:
+ *              "200":
+ *                  description: The created board.
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/board'
+ *  /comment/write:
+ *      post:
+ *          summary: Creates a new Comment
+ *          tags: [Boards]
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/comment'
+ *          response:
+ *              "200":
+ *                  description: The created comment.
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/comment'
  */
 //import
 import express from "express";
@@ -25,21 +74,6 @@ let upload = multer({
     storage : storage,
 });
 
-/**
- * @swagger
- * path:
- *  /board_list:
- *      get:
- *          summary: Board List
- *          tags: [Boards]
- *          response:
- *              "200":
- *                  description: Board List
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/board'
- */
 router.get('/board_list', (req, res) => {
     Board.find({})
         .then((board) => {

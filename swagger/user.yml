@@ -1,6 +1,9 @@
 components:
   schemas:
     user:
+      required:
+        - id
+        - email
       properties:
         id:
           type: string
@@ -15,6 +18,10 @@ components:
           type: string
           description: 프로필 사진 저장 경로
     board:
+      required:
+        - title
+        - contents
+        - authorID
       properties:
         title:
           type: string
@@ -25,8 +32,11 @@ components:
         author:
           type: string
           description: 작성자 닉네임
+        authorID:
+          type: string
+          description: 작성자 ID
         date:
-          type: Date
+          type: date
           description: 작성일
         dateText:
           type: string
@@ -35,7 +45,7 @@ components:
           type: string
           description: 이미지 저장 경로
         like:
-          type: Number
+          type: number
           description: 글 추천 수
         likeUsers:
           type: [ string ]
@@ -44,6 +54,9 @@ components:
           type: [ commentSchema ]
           description: 글에 적힌 댓글들이 저장된 배열
     comment:
+      required:
+        - contents
+        - authorID
       properties:
         contents:
           type: string
@@ -55,7 +68,7 @@ components:
           type: string
           description: 작성자 ID
         date:
-          type: Date
+          type: date
           description: 작성일
         dateText:
           type: string

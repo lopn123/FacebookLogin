@@ -13,6 +13,7 @@ const boardSchema = new schema({
     title: String, //제목
     contents: String, //내용
     author : String, //작성자 이름
+    authorID : String,
     date: Date, //작성일
     dateText : String, //ex) '2021-10-05 15:41:40'
     imageDir : String,
