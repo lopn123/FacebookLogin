@@ -1,0 +1,45 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>제목 : <%=board.title%></h1>
+    <p><%=board.dateText%></p>
+    <h2>작성자 : <%=board.author%></h2>
+    <img src="<%=board.imageDir%>">
+    <h3>내용 : <%=board.contents%></h3>
+    <form action="/board/like" method="post">
+        <input type="text" name="id" value="<%=board._id%>" hidden>
+        <input type="submit" value="추천">
+    </form>
+    <p>추천 수 : <%=board.like%></p>
+    <hr>
+    <h2>댓글</h2>
+    <% if (board.comments !== null)
+    {
+        var comment = board.comments;
+            for(var i = 0; i< board.comments.length; i++)
+            {%>
+                <h3 style="display: inline"><%=comment[i].author%></h3>
+                <p><%=comment[i].dateText%></p>
+                <h4><%=comment[i].contents%></h4>
+                <hr>
+            <%}
+    }%>
+
+    <form action="/comment/write" method="post">
+        <input type = "text" name = "id" value = "<%=board._id%>" hidden>
+        댓글 : <textarea name = "contents"></textarea><br>
+        <input type="submit" value = "작성">
+    </form>
+    <form action="/board/go_list" method="post">
+        <input type="submit" value="글 목록">
+    </form>
+</body>
+
+</html>

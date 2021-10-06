@@ -1,0 +1,23 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>글쓰기</h1>
+    <p>작성자 : <%=user.nickname%></p>
+    <form action="/board/write" method="post" enctype = "multipart/form-data">
+        <input type="file" name="image"><br>
+        제목 : <input type="text" name="title"><br>
+        내용 : <textarea name="contents"></textarea><br>
+        <input type = "text" name = "author" value = "<%=user.nickname%>" hidden>
+        <input type = "text" name = "authorID" value = "<%=user.id%>" hidden>
+        <input type="submit" value="작성">
+    </form>
+</body>
+
+</html>
