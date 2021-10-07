@@ -7,7 +7,6 @@ import {swaggerUi, specs} from "./modules/swagger"
 import router from "./routes/router";
 import login from "./routes/login";
 import profile from "./routes/profile";
-import socketIo from "socket.io";
 //variable
 const app = express();
 const port = 80;
