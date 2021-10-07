@@ -7,6 +7,7 @@ import {swaggerUi, specs} from "./modules/swagger"
 import router from "./routes/router";
 import login from "./routes/login";
 import profile from "./routes/profile";
+import socketIo from "socket.io";
 //variable
 const app = express();
 const port = 80;
@@ -22,6 +23,7 @@ declare module "express-session"
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(session({
     secret : 'SecretPlace',
     resave : false,

@@ -33,9 +33,9 @@
     }%>
 
     <form action="/comment/write" method="post">
-        <input type = "text" name = "id" value = "<%=board._id%>" hidden>
-        댓글 : <textarea name = "contents"></textarea><br>
-        <input type="submit" value = "작성">
+        <input type = "text" name="boardID" value="<%=board._id%>" hidden>
+        댓글 : <textarea name="contents"></textarea><br>
+        <input type="submit" value="작성">
     </form>
     <form action="/board/go_list" method="post">
         <input type="submit" value="글 목록">

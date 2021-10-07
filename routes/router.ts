@@ -2,56 +2,93 @@
  * @swagger
  * tags:
  *  name: Boards
- *  description: Manage Board API
+ *  description: 게시글 API 문서
  */
 /**
  * @swagger
  * paths:
- *  /board_list:
+ *  /board/{id}:
  *      get:
- *          summary: Lists all the Boards
+ *          summary: 글 열람
  *          tags: [Boards]
+ *          parameters:
+ *              - in: path
+ *                type: string
+ *                required: true
+ *                name: _id
+ *                description: 글 Schema _id 값
  *          response:
  *              "200":
- *                  description: The list of Boards.
+ *                  description: 글 조회 성공.
  *                  content:
  *                      application/json:
  *                          schema:
  *                              $ref: '#/components/schemas/board'
+ *              "404":
+ *                  description: 존재하지 않거나 삭제된 글 id로 접속함.
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: object
+ *                              properties:
+ *                                  code:
+ *                                      type: number
+ *                                      example: 404
+ *                                  name:
+ *                                      type: string
+ *                                      example: 존재하지 않는 글입니다.
  *  /board/write:
  *      post:
- *          summary: Creates a new Board
+ *          summary: 글 작성
  *          tags: [Boards]
  *          requestBody:
  *              required: true
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/board'
+ *                          type: object
+ *                          properties:
+ *                              title:
+ *                                  type: string
+ *                              contents:
+ *                                  type: string
+ *                              author:
+ *                                  type: string
+ *                              authorID:
+ *                                  type: string
+ *                              like:
+ *                                  type: number
  *          response:
  *              "200":
- *                  description: The created board.
+ *                  description: 글 생성 완료.
  *                  content:
  *                      application/json:
  *                          schema:
  *                              $ref: '#/components/schemas/board'
  *  /comment/write:
  *      post:
- *          summary: Creates a new Comment
+ *          summary: 댓글 작성
  *          tags: [Boards]
  *          requestBody:
  *              required: true
  *              content:
  *                  application/json:
  *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              contents:
+ *                                  type: string
+ *                              boardID:
+ *                                  type: string
+ *                                  description: 글 Schema _id 값
+ *      response:
+ *          "200":
+ *              description: 댓글 작성 완료.
+ *              content:
+ *                  application/json:
+ *                      schema:
  *                          $ref: '#/components/schemas/comment'
- *          response:
- *              "200":
- *                  description: The created comment.
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/comment'
  */
 //import
 import express from "express";
@@ -109,10 +146,9 @@ router.post('/board/write', upload.single('image'), (req, res) => {
     board.authorID = req.body.authorID;
     board.contents = req.body.contents;
     board.date = Date.now();
-    board.dateText = DateFormat(board.date);
-    if (req.file) {
-        board.imageDir = '/img/' + req.file.filename;
-    }
+    board.dateText = req.body.dateText == null ? DateFormat(board.date) : req.body.dateText;
+    if(req.file)      board.imageDir = '/img/' + req.file.filename;
+    if(req.body.like) board.like = req.body.like;
 
     board.save()
         .then(() => {
@@ -196,7 +232,7 @@ router.post('/comment/write',  (req, res) => {
             {
                 comment.author = user.nickname;
                 comment.authorID = user.id;
-                return Board.findOneAndUpdate({ _id: req.body.id }, { $push: { comments: comment } });
+                return Board.findOneAndUpdate({ _id: req.body.boardID }, { $push: { comments: comment } });
             }
         })
         .then((updatedBoard) => {

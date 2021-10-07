@@ -5,9 +5,9 @@ const options = {
     swaggerDefinition:{
         openapi: "3.0.0",
         info: {
-            title: "Test API",
+            title: "SNSLogin_Typescript API",
             version: "1.0.0",
-            description: "Test API 문서"
+            description: "SNSLogin_Typescript API 문서"
         },
         host: 'localhost',
         basePath: '/'
