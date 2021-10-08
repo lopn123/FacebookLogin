@@ -10,7 +10,7 @@ export default function mongooseInit()
 
 function connect()
 {
-    mongoose.connect('mongodb://localhost:3000/test', (err) => {
+    mongoose.connect('mongodb://localhost:27017/test', (err) => {
         if(err)
         {
             console.log(err);
