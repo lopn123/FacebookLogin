@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.get('/login', (req, res) => {
     const stringifieldParams = queryString.stringify({
         client_id: "264574525535124",
-        redirect_uri: 'http://localhost/auth/callback',
+        redirect_uri: 'http://localhost:3000/auth/callback',
         scope: ['email', 'user_photos'].join(','),
         response_type: 'code',
         auth_type: 'rerequest',
@@ -96,7 +96,7 @@ async function getAccessTokenFromCode(code : any) { //db
             params: {
                 client_id: "264574525535124",
                 client_secret: 'c54baba9f76fc42bca512971b33327a4',
-                redirect_uri: 'http://localhost/auth/callback',
+                redirect_uri: 'http://localhost:3000/auth/callback',
                 code
             }
         });
@@ -114,7 +114,7 @@ async function getUserInfoWithAccessToken(token : any){
             url: 'https://graph.facebook.com/me?fields=id,name,email,picture&access_token=' + token,
             method: 'get',
             params: {
-                redirect_uri: 'http://localhost/auth/callback'
+                redirect_uri: 'http://localhost:3000/auth/callback'
             }
         });
         const userInfo = {

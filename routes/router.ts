@@ -97,6 +97,7 @@ import User from "../models/user";
 import Board from "../models/board";
 import Comment from "../models/comment";
 import DateFormat from "../function/DateFormat";
+import UTCtoKST from "../function/UTCtoKST";
 //variable
 const router = express.Router();
 let storage = multer.diskStorage({
@@ -146,7 +147,7 @@ router.post('/board/write', upload.single('image'), (req, res) => {
     board.authorID = req.body.authorID;
     board.contents = req.body.contents;
     board.date = Date.now();
-    console.log(board.date);
+    board.date = UTCtoKST(board.date);
     board.dateText = req.body.dateText == null ? DateFormat(board.date) : req.body.dateText;
     if(req.file)      board.imageDir = '/img/' + req.file.filename;
     if(req.body.like) board.like = req.body.like;
@@ -220,6 +221,7 @@ router.post('/comment/write',  (req, res) => {
 
     comment.contents = req.body.contents;
     comment.date = Date.now();
+    comment.date = UTCtoKST(comment.date);
     comment.dateText = DateFormat(comment.date);
 
     User.findOne({id : req.session.userID})
