@@ -36,11 +36,6 @@ app.use('/', login);
 app.use('/', profile);
 app.use('/', router);
 
-app.get('localhost:3000/auth/callback', (req, res) => {
-    console.log('Enter');
-    res.redirect('/auth/callback');
-});
-
 app.listen(port, () => {
     console.log("Server Running on Port " + port);
 });
