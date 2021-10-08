@@ -9,7 +9,7 @@ import login from "./routes/login";
 import profile from "./routes/profile";
 //variable
 const app = express();
-const port = 3000;
+const port = 22;
 
 declare module "express-session"
 {

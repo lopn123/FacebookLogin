@@ -80,6 +80,10 @@ let upload = multer({
     storage : storage,
 });
 
+router.get('/profile/', (req, res) => {
+    res.redirect('/login');
+});
+
 router.get('/profile/:id',function(req, res){
     User.findOne({id : req.params.id})
         .then((user) => {
