@@ -146,6 +146,7 @@ router.post('/board/write', upload.single('image'), (req, res) => {
     board.authorID = req.body.authorID;
     board.contents = req.body.contents;
     board.date = Date.now();
+    console.log(board.date);
     board.dateText = req.body.dateText == null ? DateFormat(board.date) : req.body.dateText;
     if(req.file)      board.imageDir = '/img/' + req.file.filename;
     if(req.body.like) board.like = req.body.like;
